@@ -10,7 +10,7 @@ namespace Assessment2_FlashCards
     {
         private string question;
         private string answer;
-        private bool flipped;
+        private bool flipped;  
 
         public Card(string question,string answer)
         {
