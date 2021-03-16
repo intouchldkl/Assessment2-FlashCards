@@ -22,31 +22,31 @@ namespace Assessment2_FlashCards
            
             loadData();
         }
-        public int nextCard()
+        public void nextCard()
         {
             topCard++;
             if(topCard >= cards.Length)
             {
                 topCard = 0;
             }
-            return topCard;
+            
         }
 
-        public int previousCard()
+        public void previousCard()
         {
            if(topCard <= 0)
             {
                 topCard = cards.Length;
             }
             topCard--;
-            return topCard;
+            
         }
 
-        public int getRandomCard()
+        public void getRandomCard()
         {
             Random rnd = new Random();
             topCard = rnd.Next(0, cards.Length - 1);
-            return topCard;
+            
             
         }
         
@@ -90,21 +90,19 @@ namespace Assessment2_FlashCards
             }
         }
 
-        public Card getCard(int i)
+        public Card getCard()
         {
-           if(i < cards.Length)
-            {
-                return cards[i];
-            }
-           else
-            {
-                return null;
-            }
+            return cards[topCard];
+          
         }
         
-        public int getCardLength()
+        public int getDeckLength()
         {
             return length - 1;
+        }
+        public int getCardIndex()
+        {
+            return topCard;
         }
     }
 }

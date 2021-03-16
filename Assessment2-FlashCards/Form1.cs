@@ -45,10 +45,10 @@ namespace Assessment2_FlashCards
             {
                 fileName = openFileDialog1.FileName;
                 deck = new Deck(fileName);
-                FlashCardDetail.Text = deck.getCard(0).getCardText();
-                ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getCardLength().ToString();
+                FlashCardDetail.Text = deck.getCard().getCardText();
+                ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
                 progressBar1.Minimum = 0;
-                progressBar1.Maximum = deck.getCardLength();
+                progressBar1.Maximum = deck.getDeckLength();
                 progressBar1.Value = index + 1;
             }
 
@@ -59,23 +59,25 @@ namespace Assessment2_FlashCards
 
         private void flipButton_Click(object sender, EventArgs e)
         {
-            deck.getCard(index).flipCard();
-            FlashCardDetail.Text = deck.getCard(index).getCardText();
+            deck.getCard().flipCard();
+            FlashCardDetail.Text = deck.getCard().getCardText();
         }
 
         private void PreviousButton_Click(object sender, EventArgs e)
         {
-            index = deck.previousCard();
-            FlashCardDetail.Text = deck.getCard(index).getCardText();
-            ProgressLabel.Text = "Progress " + (index +1).ToString() + "/" + deck.getCardLength().ToString();
+            deck.previousCard();
+            index = deck.getCardIndex();
+            FlashCardDetail.Text = deck.getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index +1).ToString() + "/" + deck.getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            index = deck.nextCard();
-            FlashCardDetail.Text = deck.getCard(index).getCardText();
-            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getCardLength().ToString();
+            deck.nextCard();
+            index = deck.getCardIndex();
+            FlashCardDetail.Text = deck.getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
@@ -83,16 +85,17 @@ namespace Assessment2_FlashCards
         {
             deck.shuffleDeck();
             index = 0;
-            FlashCardDetail.Text = deck.getCard(index).getCardText();
-            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getCardLength().ToString();
+            FlashCardDetail.Text = deck.getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
         private void randomButton_Click(object sender, EventArgs e)
         {
-            index = deck.getRandomCard();
-            FlashCardDetail.Text = deck.getCard(index).getCardText();
-            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getCardLength().ToString();
+            deck.getRandomCard();
+            index = deck.getCardIndex();
+            FlashCardDetail.Text = deck.getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
