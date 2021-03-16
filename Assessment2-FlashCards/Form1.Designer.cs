@@ -34,6 +34,15 @@ namespace Assessment2_FlashCards
             this.FlashCardDetail = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.FileLabel = new System.Windows.Forms.Label();
+            this.browseButton = new System.Windows.Forms.Button();
+            this.PreviousButton = new System.Windows.Forms.Button();
+            this.flipButton = new System.Windows.Forms.Button();
+            this.NextButton = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.ProgressLabel = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.ShuffleButton = new System.Windows.Forms.Button();
+            this.randomButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,11 +68,12 @@ namespace Assessment2_FlashCards
             // 
             this.FlashCardDetail.AutoSize = true;
             this.FlashCardDetail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FlashCardDetail.Location = new System.Drawing.Point(361, 210);
+            this.FlashCardDetail.Location = new System.Drawing.Point(346, 206);
             this.FlashCardDetail.Name = "FlashCardDetail";
-            this.FlashCardDetail.Size = new System.Drawing.Size(53, 13);
+            this.FlashCardDetail.Size = new System.Drawing.Size(80, 13);
             this.FlashCardDetail.TabIndex = 2;
-            this.FlashCardDetail.Text = "RIDDLE";
+            this.FlashCardDetail.Text = "FLASHCARD";
+            this.FlashCardDetail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboBox1
             // 
@@ -83,12 +93,109 @@ namespace Assessment2_FlashCards
             this.FileLabel.TabIndex = 4;
             this.FileLabel.Text = "File:";
             // 
+            // browseButton
+            // 
+            this.browseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.browseButton.Location = new System.Drawing.Point(510, 29);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(75, 23);
+            this.browseButton.TabIndex = 5;
+            this.browseButton.Text = "Browse";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
+            // 
+            // PreviousButton
+            // 
+            this.PreviousButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PreviousButton.Location = new System.Drawing.Point(208, 329);
+            this.PreviousButton.Name = "PreviousButton";
+            this.PreviousButton.Size = new System.Drawing.Size(95, 23);
+            this.PreviousButton.TabIndex = 6;
+            this.PreviousButton.Text = "Previous";
+            this.PreviousButton.UseVisualStyleBackColor = true;
+            this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
+            // 
+            // flipButton
+            // 
+            this.flipButton.BackColor = System.Drawing.Color.Red;
+            this.flipButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flipButton.Location = new System.Drawing.Point(351, 322);
+            this.flipButton.Name = "flipButton";
+            this.flipButton.Size = new System.Drawing.Size(75, 35);
+            this.flipButton.TabIndex = 7;
+            this.flipButton.Text = "FLIP!";
+            this.flipButton.UseVisualStyleBackColor = false;
+            this.flipButton.Click += new System.EventHandler(this.flipButton_Click);
+            // 
+            // NextButton
+            // 
+            this.NextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NextButton.Location = new System.Drawing.Point(480, 328);
+            this.NextButton.Name = "NextButton";
+            this.NextButton.Size = new System.Drawing.Size(75, 23);
+            this.NextButton.TabIndex = 8;
+            this.NextButton.Text = "Next";
+            this.NextButton.UseVisualStyleBackColor = true;
+            this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(17, 119);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(143, 17);
+            this.progressBar1.TabIndex = 9;
+            
+            // 
+            // ProgressLabel
+            // 
+            this.ProgressLabel.AutoSize = true;
+            this.ProgressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProgressLabel.Location = new System.Drawing.Point(14, 149);
+            this.ProgressLabel.Name = "ProgressLabel";
+            this.ProgressLabel.Size = new System.Drawing.Size(68, 15);
+            this.ProgressLabel.TabIndex = 10;
+            this.ProgressLabel.Text = "Progress ";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // ShuffleButton
+            // 
+            this.ShuffleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShuffleButton.Location = new System.Drawing.Point(17, 354);
+            this.ShuffleButton.Name = "ShuffleButton";
+            this.ShuffleButton.Size = new System.Drawing.Size(75, 29);
+            this.ShuffleButton.TabIndex = 11;
+            this.ShuffleButton.Text = "Shuffle";
+            this.ShuffleButton.UseVisualStyleBackColor = true;
+            this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
+            // 
+            // randomButton
+            // 
+            this.randomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.randomButton.Location = new System.Drawing.Point(109, 354);
+            this.randomButton.Name = "randomButton";
+            this.randomButton.Size = new System.Drawing.Size(75, 29);
+            this.randomButton.TabIndex = 12;
+            this.randomButton.Text = "Random";
+            this.randomButton.UseVisualStyleBackColor = true;
+            this.randomButton.Click += new System.EventHandler(this.randomButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.randomButton);
+            this.Controls.Add(this.ShuffleButton);
+            this.Controls.Add(this.ProgressLabel);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.NextButton);
+            this.Controls.Add(this.flipButton);
+            this.Controls.Add(this.PreviousButton);
+            this.Controls.Add(this.browseButton);
             this.Controls.Add(this.FileLabel);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.FlashCardDetail);
@@ -110,6 +217,15 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.Label FlashCardDetail;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label FileLabel;
+        private System.Windows.Forms.Button browseButton;
+        private System.Windows.Forms.Button PreviousButton;
+        private System.Windows.Forms.Button flipButton;
+        private System.Windows.Forms.Button NextButton;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label ProgressLabel;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button ShuffleButton;
+        private System.Windows.Forms.Button randomButton;
     }
 }
 

@@ -13,41 +13,46 @@ namespace Assessment2_FlashCards
         private Card[] cards;
         private string fileName;
         private int topCard;
+        private int length;
 
 
         public Deck(string fileName)
         {
             this.fileName = fileName;
+           
             loadData();
         }
-        public void nextCard()
+        public int nextCard()
         {
             topCard++;
             if(topCard >= cards.Length)
             {
                 topCard = 0;
             }
+            return topCard;
         }
 
-        public void previousCard()
+        public int previousCard()
         {
            if(topCard <= 0)
             {
                 topCard = cards.Length;
             }
             topCard--;
+            return topCard;
         }
 
-        public void getRandomCard()
+        public int getRandomCard()
         {
             Random rnd = new Random();
             topCard = rnd.Next(0, cards.Length - 1);
+            return topCard;
             
         }
         
         public void loadData()
         {
-            int length = 0;
+            length = 0;
             StreamReader fileReader = new StreamReader(fileName);
             while ((fileReader.ReadLine()) != null)
             {
@@ -57,7 +62,7 @@ namespace Assessment2_FlashCards
 
             fileReader = new StreamReader(fileName);
             string line = fileReader.ReadLine();
-            Card[] cards = new Card[length - 1];
+           cards = new Card[length - 1];
             int count = 0;
             while ((line = fileReader.ReadLine()) != null)
             {
@@ -84,6 +89,22 @@ namespace Assessment2_FlashCards
 
             }
         }
+
+        public Card getCard(int i)
+        {
+           if(i < cards.Length)
+            {
+                return cards[i];
+            }
+           else
+            {
+                return null;
+            }
+        }
         
+        public int getCardLength()
+        {
+            return length - 1;
+        }
     }
 }
