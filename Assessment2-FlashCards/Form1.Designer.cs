@@ -29,6 +29,7 @@ namespace Assessment2_FlashCards
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.FlashCardDetail = new System.Windows.Forms.Label();
@@ -43,6 +44,12 @@ namespace Assessment2_FlashCards
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.ShuffleButton = new System.Windows.Forms.Button();
             this.randomButton = new System.Windows.Forms.Button();
+            this.raceMode = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.StartButton = new System.Windows.Forms.Button();
+            this.StopButton = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,11 +75,11 @@ namespace Assessment2_FlashCards
             // 
             this.FlashCardDetail.AutoSize = true;
             this.FlashCardDetail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FlashCardDetail.Location = new System.Drawing.Point(346, 206);
+            this.FlashCardDetail.Location = new System.Drawing.Point(299, 207);
             this.FlashCardDetail.Name = "FlashCardDetail";
-            this.FlashCardDetail.Size = new System.Drawing.Size(80, 13);
+            this.FlashCardDetail.Size = new System.Drawing.Size(138, 13);
             this.FlashCardDetail.TabIndex = 2;
-            this.FlashCardDetail.Text = "FLASHCARD";
+            this.FlashCardDetail.Text = "Please browse your file";
             this.FlashCardDetail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboBox1
@@ -113,6 +120,7 @@ namespace Assessment2_FlashCards
             this.PreviousButton.TabIndex = 6;
             this.PreviousButton.Text = "Previous";
             this.PreviousButton.UseVisualStyleBackColor = true;
+            this.PreviousButton.Visible = false;
             this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
             // flipButton
@@ -125,6 +133,7 @@ namespace Assessment2_FlashCards
             this.flipButton.TabIndex = 7;
             this.flipButton.Text = "FLIP!";
             this.flipButton.UseVisualStyleBackColor = false;
+            this.flipButton.Visible = false;
             this.flipButton.Click += new System.EventHandler(this.flipButton_Click);
             // 
             // NextButton
@@ -136,6 +145,7 @@ namespace Assessment2_FlashCards
             this.NextButton.TabIndex = 8;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
+            this.NextButton.Visible = false;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // progressBar1
@@ -144,7 +154,7 @@ namespace Assessment2_FlashCards
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(143, 17);
             this.progressBar1.TabIndex = 9;
-            
+            this.progressBar1.Visible = false;
             // 
             // ProgressLabel
             // 
@@ -155,6 +165,7 @@ namespace Assessment2_FlashCards
             this.ProgressLabel.Size = new System.Drawing.Size(68, 15);
             this.ProgressLabel.TabIndex = 10;
             this.ProgressLabel.Text = "Progress ";
+            this.ProgressLabel.Visible = false;
             // 
             // openFileDialog1
             // 
@@ -169,6 +180,7 @@ namespace Assessment2_FlashCards
             this.ShuffleButton.TabIndex = 11;
             this.ShuffleButton.Text = "Shuffle";
             this.ShuffleButton.UseVisualStyleBackColor = true;
+            this.ShuffleButton.Visible = false;
             this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
             // 
             // randomButton
@@ -180,7 +192,62 @@ namespace Assessment2_FlashCards
             this.randomButton.TabIndex = 12;
             this.randomButton.Text = "Random";
             this.randomButton.UseVisualStyleBackColor = true;
+            this.randomButton.Visible = false;
             this.randomButton.Click += new System.EventHandler(this.randomButton_Click);
+            // 
+            // raceMode
+            // 
+            this.raceMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.raceMode.Location = new System.Drawing.Point(641, 354);
+            this.raceMode.Name = "raceMode";
+            this.raceMode.Size = new System.Drawing.Size(111, 29);
+            this.raceMode.TabIndex = 13;
+            this.raceMode.Text = "Race Mode";
+            this.raceMode.UseVisualStyleBackColor = true;
+            this.raceMode.Click += new System.EventHandler(this.raceMode_Click);
+            // 
+            // timer1
+            // 
+           
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(636, 139);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(128, 31);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "00:00:00";
+            // 
+            // StartButton
+            // 
+            this.StartButton.Location = new System.Drawing.Point(653, 187);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(75, 23);
+            this.StartButton.TabIndex = 15;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
+            // 
+            // StopButton
+            // 
+            this.StopButton.Location = new System.Drawing.Point(653, 226);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(75, 23);
+            this.StopButton.TabIndex = 16;
+            this.StopButton.Text = "Stop";
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(653, 272);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -188,6 +255,11 @@ namespace Assessment2_FlashCards
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.StopButton);
+            this.Controls.Add(this.StartButton);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.raceMode);
             this.Controls.Add(this.randomButton);
             this.Controls.Add(this.ShuffleButton);
             this.Controls.Add(this.ProgressLabel);
@@ -226,6 +298,12 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button ShuffleButton;
         private System.Windows.Forms.Button randomButton;
+        private System.Windows.Forms.Button raceMode;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.Button StopButton;
+        private System.Windows.Forms.Button button3;
     }
 }
 

@@ -6,19 +6,26 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Assessment2_FlashCards
 {
+    
+
     public partial class Form1 : Form
     {
         private string fileName;
         Deck deck;
         private int index = 0;
+        System.Timers.Timer t;
+        private int m;
+        private int s;
+        private int ms;
         public Form1()
         {
             InitializeComponent();
-            
+           
 
         }
 
@@ -50,6 +57,13 @@ namespace Assessment2_FlashCards
                 progressBar1.Minimum = 0;
                 progressBar1.Maximum = deck.getDeckLength();
                 progressBar1.Value = index + 1;
+                ShuffleButton.Visible = true;
+                randomButton.Visible = true;
+                flipButton.Visible = true;
+                NextButton.Visible = true;
+                PreviousButton.Visible = true;
+                progressBar1.Visible = true;
+                ProgressLabel.Visible = true;
             }
 
 
@@ -99,6 +113,36 @@ namespace Assessment2_FlashCards
             progressBar1.Value = index + 1;
         }
 
-        
+        private void raceMode_Click(object sender, EventArgs e)
+        {
+            t = new System.Timers.Timer();
+            t.Interval = 100;
+            t.Elapsed += OnTimeEvent;
+
+        }
+
+        private void OnTimeEvent(object sender, ElapsedEventArgs e)
+        {
+           Invoke(new Action(() =>
+           {
+               ms -= 1;
+               if(ms == 0)
+               {
+                   ms = 10
+               }
+           }
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+      
     }
 }
