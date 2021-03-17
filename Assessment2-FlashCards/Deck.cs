@@ -104,5 +104,10 @@ namespace Assessment2_FlashCards
         {
             return topCard;
         }
+        public void refreshDeck()
+        {
+            topCard = 0;
+        }
+
     }
 }

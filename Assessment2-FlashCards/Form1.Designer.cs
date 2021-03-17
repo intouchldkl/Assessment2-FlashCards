@@ -46,10 +46,13 @@ namespace Assessment2_FlashCards
             this.randomButton = new System.Windows.Forms.Button();
             this.raceMode = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
+            this.TimerLabel = new System.Windows.Forms.Label();
             this.StartButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.restartButton = new System.Windows.Forms.Button();
+            this.TimeSelection = new System.Windows.Forms.ComboBox();
+            this.selectTimeLabel = new System.Windows.Forms.Label();
+            this.ExitRaceModeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,6 +116,7 @@ namespace Assessment2_FlashCards
             // 
             // PreviousButton
             // 
+            this.PreviousButton.Enabled = false;
             this.PreviousButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PreviousButton.Location = new System.Drawing.Point(208, 329);
             this.PreviousButton.Name = "PreviousButton";
@@ -120,12 +124,12 @@ namespace Assessment2_FlashCards
             this.PreviousButton.TabIndex = 6;
             this.PreviousButton.Text = "Previous";
             this.PreviousButton.UseVisualStyleBackColor = true;
-            this.PreviousButton.Visible = false;
             this.PreviousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
             // flipButton
             // 
             this.flipButton.BackColor = System.Drawing.Color.Red;
+            this.flipButton.Enabled = false;
             this.flipButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flipButton.Location = new System.Drawing.Point(351, 322);
             this.flipButton.Name = "flipButton";
@@ -133,11 +137,11 @@ namespace Assessment2_FlashCards
             this.flipButton.TabIndex = 7;
             this.flipButton.Text = "FLIP!";
             this.flipButton.UseVisualStyleBackColor = false;
-            this.flipButton.Visible = false;
             this.flipButton.Click += new System.EventHandler(this.flipButton_Click);
             // 
             // NextButton
             // 
+            this.NextButton.Enabled = false;
             this.NextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NextButton.Location = new System.Drawing.Point(480, 328);
             this.NextButton.Name = "NextButton";
@@ -145,7 +149,6 @@ namespace Assessment2_FlashCards
             this.NextButton.TabIndex = 8;
             this.NextButton.Text = "Next";
             this.NextButton.UseVisualStyleBackColor = true;
-            this.NextButton.Visible = false;
             this.NextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // progressBar1
@@ -173,6 +176,7 @@ namespace Assessment2_FlashCards
             // 
             // ShuffleButton
             // 
+            this.ShuffleButton.Enabled = false;
             this.ShuffleButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ShuffleButton.Location = new System.Drawing.Point(17, 354);
             this.ShuffleButton.Name = "ShuffleButton";
@@ -180,11 +184,11 @@ namespace Assessment2_FlashCards
             this.ShuffleButton.TabIndex = 11;
             this.ShuffleButton.Text = "Shuffle";
             this.ShuffleButton.UseVisualStyleBackColor = true;
-            this.ShuffleButton.Visible = false;
             this.ShuffleButton.Click += new System.EventHandler(this.ShuffleButton_Click);
             // 
             // randomButton
             // 
+            this.randomButton.Enabled = false;
             this.randomButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.randomButton.Location = new System.Drawing.Point(109, 354);
             this.randomButton.Name = "randomButton";
@@ -192,7 +196,6 @@ namespace Assessment2_FlashCards
             this.randomButton.TabIndex = 12;
             this.randomButton.Text = "Random";
             this.randomButton.UseVisualStyleBackColor = true;
-            this.randomButton.Visible = false;
             this.randomButton.Click += new System.EventHandler(this.randomButton_Click);
             // 
             // raceMode
@@ -208,46 +211,86 @@ namespace Assessment2_FlashCards
             // 
             // timer1
             // 
-           
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label2
+            // TimerLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(636, 139);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(128, 31);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "00:00:00";
+            this.TimerLabel.AutoSize = true;
+            this.TimerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimerLabel.Location = new System.Drawing.Point(636, 139);
+            this.TimerLabel.Name = "TimerLabel";
+            this.TimerLabel.Size = new System.Drawing.Size(128, 31);
+            this.TimerLabel.TabIndex = 14;
+            this.TimerLabel.Text = "00:00:00";
+            this.TimerLabel.Visible = false;
             // 
             // StartButton
             // 
+            this.StartButton.Enabled = false;
             this.StartButton.Location = new System.Drawing.Point(653, 187);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 23);
             this.StartButton.TabIndex = 15;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Visible = false;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // StopButton
             // 
+            this.StopButton.Enabled = false;
             this.StopButton.Location = new System.Drawing.Point(653, 226);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 16;
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Visible = false;
             this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
-            // button3
+            // restartButton
             // 
-            this.button3.Location = new System.Drawing.Point(653, 272);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.restartButton.Enabled = false;
+            this.restartButton.Location = new System.Drawing.Point(653, 264);
+            this.restartButton.Name = "restartButton";
+            this.restartButton.Size = new System.Drawing.Size(75, 23);
+            this.restartButton.TabIndex = 17;
+            this.restartButton.Text = "Restart";
+            this.restartButton.UseVisualStyleBackColor = true;
+            this.restartButton.Visible = false;
+            this.restartButton.Click += new System.EventHandler(this.restartButton_Click);
+            // 
+            // TimeSelection
+            // 
+            this.TimeSelection.FormattingEnabled = true;
+            this.TimeSelection.Location = new System.Drawing.Point(643, 91);
+            this.TimeSelection.Name = "TimeSelection";
+            this.TimeSelection.Size = new System.Drawing.Size(121, 21);
+            this.TimeSelection.TabIndex = 18;
+            this.TimeSelection.Visible = false;
+            this.TimeSelection.SelectedIndexChanged += new System.EventHandler(this.TimeSelection_SelectedIndexChanged);
+            // 
+            // selectTimeLabel
+            // 
+            this.selectTimeLabel.AutoSize = true;
+            this.selectTimeLabel.Location = new System.Drawing.Point(597, 94);
+            this.selectTimeLabel.Name = "selectTimeLabel";
+            this.selectTimeLabel.Size = new System.Drawing.Size(40, 13);
+            this.selectTimeLabel.TabIndex = 19;
+            this.selectTimeLabel.Text = "Select:";
+            this.selectTimeLabel.Visible = false;
+            // 
+            // ExitRaceModeButton
+            // 
+            this.ExitRaceModeButton.CausesValidation = false;
+            this.ExitRaceModeButton.Location = new System.Drawing.Point(653, 294);
+            this.ExitRaceModeButton.Name = "ExitRaceModeButton";
+            this.ExitRaceModeButton.Size = new System.Drawing.Size(75, 23);
+            this.ExitRaceModeButton.TabIndex = 20;
+            this.ExitRaceModeButton.Text = "Exit";
+            this.ExitRaceModeButton.UseVisualStyleBackColor = true;
+            this.ExitRaceModeButton.Visible = false;
+            this.ExitRaceModeButton.Click += new System.EventHandler(this.ExitRaceModeButton_Click);
             // 
             // Form1
             // 
@@ -255,10 +298,13 @@ namespace Assessment2_FlashCards
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.ExitRaceModeButton);
+            this.Controls.Add(this.selectTimeLabel);
+            this.Controls.Add(this.TimeSelection);
+            this.Controls.Add(this.restartButton);
             this.Controls.Add(this.StopButton);
             this.Controls.Add(this.StartButton);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.TimerLabel);
             this.Controls.Add(this.raceMode);
             this.Controls.Add(this.randomButton);
             this.Controls.Add(this.ShuffleButton);
@@ -300,10 +346,13 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.Button randomButton;
         private System.Windows.Forms.Button raceMode;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label TimerLabel;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button StopButton;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button restartButton;
+        private System.Windows.Forms.ComboBox TimeSelection;
+        private System.Windows.Forms.Label selectTimeLabel;
+        private System.Windows.Forms.Button ExitRaceModeButton;
     }
 }
 

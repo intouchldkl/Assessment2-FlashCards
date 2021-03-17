@@ -17,15 +17,26 @@ namespace Assessment2_FlashCards
     {
         private string fileName;
         Deck deck;
-        private int index = 0;
-        System.Timers.Timer t;
-        private int m;
-        private int s;
-        private int ms;
+        private int index,m,s,ms,mChosen,sChosen,msChosen;
+        private bool isOnRaceMode;
+        
+    
         public Form1()
         {
             InitializeComponent();
-           
+            TimeSelection.Items.Add("5 minute");
+            TimeSelection.Items.Add("3 minute");
+            TimeSelection.Items.Add("1 minute");
+            //Is not working
+            if(isOnRaceMode == true && progressBar1.Value == deck.getDeckLength() )
+            {
+                FlashCardDetail.Text = "TIME'S UP";
+                flipButton.Enabled = false;
+                NextButton.Enabled = false;
+                PreviousButton.Enabled = false;
+                ShuffleButton.Enabled = false;
+                randomButton.Enabled = false;
+            }
 
         }
 
@@ -57,13 +68,14 @@ namespace Assessment2_FlashCards
                 progressBar1.Minimum = 0;
                 progressBar1.Maximum = deck.getDeckLength();
                 progressBar1.Value = index + 1;
-                ShuffleButton.Visible = true;
-                randomButton.Visible = true;
-                flipButton.Visible = true;
-                NextButton.Visible = true;
-                PreviousButton.Visible = true;
                 progressBar1.Visible = true;
                 ProgressLabel.Visible = true;
+                flipButton.Enabled = true;
+                NextButton.Enabled = true;
+                PreviousButton.Enabled = true;
+                ShuffleButton.Enabled = true;
+                randomButton.Enabled = true;
+
             }
 
 
@@ -115,34 +127,170 @@ namespace Assessment2_FlashCards
 
         private void raceMode_Click(object sender, EventArgs e)
         {
-            t = new System.Timers.Timer();
-            t.Interval = 100;
-            t.Elapsed += OnTimeEvent;
+            deck.refreshDeck();
+            index = deck.getCardIndex();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
+            progressBar1.Value = index + 1;
+            selectTimeLabel.Visible = true;
+            TimerLabel.Visible = true;
+            TimeSelection.Visible = true;
+            StartButton.Visible = true;
+            StopButton.Visible = true;
+            restartButton.Visible = true;
+            ExitRaceModeButton.Visible = true;
+            flipButton.Enabled = false;
+            NextButton.Enabled = false;
+            PreviousButton.Enabled = false;
+            ShuffleButton.Enabled = false;
+            randomButton.Enabled = false;
+            raceMode.Enabled = false;
+            isOnRaceMode = true;
 
-        }
-
-        private void OnTimeEvent(object sender, ElapsedEventArgs e)
-        {
-           Invoke(new Action(() =>
-           {
-               ms -= 1;
-               if(ms == 0)
-               {
-                   ms = 10
-               }
-           }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
+        {
+            StartButton.Text = "Start";
+            ms = 10;
+            timer1.Enabled = true;
+            flipButton.Enabled = true;
+            NextButton.Enabled = true;
+            PreviousButton.Enabled = true;
+            ShuffleButton.Enabled = true;
+            randomButton.Enabled = true;
+        }
+
+        private void ExitRaceModeButton_Click(object sender, EventArgs e)
         {
 
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
-
+            timer1.Enabled = false;
+            flipButton.Enabled = false;
+            NextButton.Enabled = false;
+            PreviousButton.Enabled = false;
+            ShuffleButton.Enabled = false;
+            randomButton.Enabled = false;
+            StartButton.Text = "Resume";
         }
 
-      
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            TimerLabel.Text = getTime();
+            ms -= 1;
+            
+            if(ms == 0)
+            {
+                ms = 9;
+                    s -= 1;
+            }
+            else if(s == 0)
+            {
+                s = 59;
+                m -= 1;
+            }
+            else if(m < 0)
+            {
+                TimerLabel.Text = "00:00:00";
+                timer1.Enabled = false;
+
+            }
+            
+        }
+
+        private void restartButton_Click(object sender, EventArgs e)
+        {
+            TimerLabel.Text = getChosenTime() ;
+            timer1.Enabled = false;
+            flipButton.Enabled = false;
+            NextButton.Enabled = false;
+            PreviousButton.Enabled = false;
+            ShuffleButton.Enabled = false;
+            randomButton.Enabled = false;
+        }
+
+        private void TimeSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = TimeSelection.SelectedIndex;
+            if(i == 0)
+            {
+                m = 5;
+                mChosen = 5;
+                s = 0;
+                ms = 0;
+                sChosen = 0;
+                msChosen = 0;
+               
+            }
+            else if(i == 1)
+            {
+                m = 3;
+                mChosen = 3;
+                s = 0;
+                ms = 0;
+                sChosen = 0;
+                msChosen = 0;
+
+            }
+            else if(i == 2)
+            {
+                m = 1;
+                mChosen = 1;
+                s = 0;
+                ms = 0;
+                sChosen = 0;
+                msChosen = 0;
+
+            }
+           TimerLabel.Text = getChosenTime();
+            StartButton.Enabled = true;
+            StopButton.Enabled = true;
+            restartButton.Enabled = true;
+        }
+
+    public string getTime()
+        {
+            string m1 = m.ToString();
+            string s1 = s.ToString();
+            string ms1 = ms.ToString();
+
+            if(m1.Length == 1)
+            {
+                m1 = "0" + m1;
+            }
+            if (s1.Length == 1)
+            {
+                s1 = "0" + s1;
+            }
+            if (ms1.Length == 1)
+            {
+                ms1 = "0" + ms1;
+            }
+
+            return m1 + ":" + s1 + ":" + ms1;
+        }
+        public string getChosenTime()
+        {
+            string m1 = mChosen.ToString();
+            string s1 = sChosen.ToString();
+            string ms1 = msChosen.ToString();
+
+            if (m1.Length == 1)
+            {
+                m1 = "0" + m1;
+            }
+            if (s1.Length == 1)
+            {
+                s1 = "0" + s1;
+            }
+            if (ms1.Length == 1)
+            {
+                ms1 = "0" + ms1;
+            }
+
+            return m1 + ":" + s1 + ":" + ms1;
+        }
     }
 }
