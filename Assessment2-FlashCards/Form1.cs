@@ -16,19 +16,21 @@ namespace Assessment2_FlashCards
     public partial class Form1 : Form
     {
         private string fileName;
-        Deck deck;
-        private int index,m,s,ms,mChosen,sChosen,msChosen;
+        private int index,m,s,ms,mChosen,sChosen,msChosen,dc,di;
         private bool isOnRaceMode;
+        private Deck[] decks;
         
-    
+
+
         public Form1()
         {
             InitializeComponent();
+            decks = new Deck[100];
             TimeSelection.Items.Add("5 minute");
             TimeSelection.Items.Add("3 minute");
             TimeSelection.Items.Add("1 minute");
             //Is not working
-            if(isOnRaceMode == true && progressBar1.Value == deck.getDeckLength() )
+            if(isOnRaceMode == true && progressBar1.Value == decks[di].getDeckLength() )
             {
                 FlashCardDetail.Text = "TIME'S UP";
                 flipButton.Enabled = false;
@@ -39,6 +41,7 @@ namespace Assessment2_FlashCards
             }
 
         }
+      
 
         private void browseButton_Click(object sender, EventArgs e)
         {
@@ -61,75 +64,99 @@ namespace Assessment2_FlashCards
             };
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+
                 fileName = openFileDialog1.FileName;
-                deck = new Deck(fileName);
-                FlashCardDetail.Text = deck.getCard().getCardText();
-                ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
-                progressBar1.Minimum = 0;
-                progressBar1.Maximum = deck.getDeckLength();
-                progressBar1.Value = index + 1;
-                progressBar1.Visible = true;
-                ProgressLabel.Visible = true;
-                flipButton.Enabled = true;
-                NextButton.Enabled = true;
-                PreviousButton.Enabled = true;
-                ShuffleButton.Enabled = true;
-                randomButton.Enabled = true;
+                di = dc;
+                decks[dc] = new Deck(fileName);
+                
+                AddDeck();
 
             }
 
 
         }
 
+        private void fileComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            di = fileComboBox.SelectedIndex;
+            fileName = fileComboBox.Text;
+        }
+
+        private void loadButton_Click(object sender, EventArgs e)
+        {
+           
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = decks[di].getDeckLength();
+            progressBar1.Value = index + 1;
+            progressBar1.Visible = true;
+            ProgressLabel.Visible = true;
+            flipButton.Enabled = true;
+            NextButton.Enabled = true;
+            PreviousButton.Enabled = true;
+            ShuffleButton.Enabled = true;
+            randomButton.Enabled = true;
+        }
+
        
+
+        public void AddDeck()
+        {
+            string name = fileName;
+            fileComboBox.Items.Add(name);
+        }
+
+ 
 
         private void flipButton_Click(object sender, EventArgs e)
         {
-            deck.getCard().flipCard();
-            FlashCardDetail.Text = deck.getCard().getCardText();
+            decks[di].getCard().flipCard();
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
         }
 
         private void PreviousButton_Click(object sender, EventArgs e)
         {
-            deck.previousCard();
-            index = deck.getCardIndex();
-            FlashCardDetail.Text = deck.getCard().getCardText();
-            ProgressLabel.Text = "Progress " + (index +1).ToString() + "/" + deck.getDeckLength().ToString();
+            decks[di].previousCard();
+            index = decks[di].getCardIndex();
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index +1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            deck.nextCard();
-            index = deck.getCardIndex();
-            FlashCardDetail.Text = deck.getCard().getCardText();
-            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
+            decks[di].nextCard();
+            index = decks[di].getCardIndex();
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
-            deck.shuffleDeck();
+            decks[di].shuffleDeck();
             index = 0;
-            FlashCardDetail.Text = deck.getCard().getCardText();
-            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
         private void randomButton_Click(object sender, EventArgs e)
         {
-            deck.getRandomCard();
-            index = deck.getCardIndex();
-            FlashCardDetail.Text = deck.getCard().getCardText();
-            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
+            decks[di].getRandomCard();
+            index = decks[di].getCardIndex();
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
 
         private void raceMode_Click(object sender, EventArgs e)
         {
-            deck.refreshDeck();
-            index = deck.getCardIndex();
-            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + deck.getDeckLength().ToString();
+            decks[di].refreshDeck();
+            index = decks[di].getCardIndex();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
             selectTimeLabel.Visible = true;
             TimerLabel.Visible = true;
@@ -159,6 +186,8 @@ namespace Assessment2_FlashCards
             ShuffleButton.Enabled = true;
             randomButton.Enabled = true;
         }
+
+  
 
         private void ExitRaceModeButton_Click(object sender, EventArgs e)
         {

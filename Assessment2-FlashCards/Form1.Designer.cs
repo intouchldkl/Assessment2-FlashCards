@@ -33,7 +33,7 @@ namespace Assessment2_FlashCards
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.FlashCardDetail = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.fileComboBox = new System.Windows.Forms.ComboBox();
             this.FileLabel = new System.Windows.Forms.Label();
             this.browseButton = new System.Windows.Forms.Button();
             this.PreviousButton = new System.Windows.Forms.Button();
@@ -53,6 +53,7 @@ namespace Assessment2_FlashCards
             this.TimeSelection = new System.Windows.Forms.ComboBox();
             this.selectTimeLabel = new System.Windows.Forms.Label();
             this.ExitRaceModeButton = new System.Windows.Forms.Button();
+            this.loadButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,13 +86,14 @@ namespace Assessment2_FlashCards
             this.FlashCardDetail.Text = "Please browse your file";
             this.FlashCardDetail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // comboBox1
+            // fileComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(239, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(224, 21);
-            this.comboBox1.TabIndex = 3;
+            this.fileComboBox.FormattingEnabled = true;
+            this.fileComboBox.Location = new System.Drawing.Point(239, 29);
+            this.fileComboBox.Name = "fileComboBox";
+            this.fileComboBox.Size = new System.Drawing.Size(224, 21);
+            this.fileComboBox.TabIndex = 3;
+            this.fileComboBox.SelectedIndexChanged += new System.EventHandler(this.fileComboBox_SelectedIndexChanged);
             // 
             // FileLabel
             // 
@@ -106,7 +108,7 @@ namespace Assessment2_FlashCards
             // browseButton
             // 
             this.browseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.browseButton.Location = new System.Drawing.Point(510, 29);
+            this.browseButton.Location = new System.Drawing.Point(480, 27);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(75, 23);
             this.browseButton.TabIndex = 5;
@@ -292,12 +294,24 @@ namespace Assessment2_FlashCards
             this.ExitRaceModeButton.Visible = false;
             this.ExitRaceModeButton.Click += new System.EventHandler(this.ExitRaceModeButton_Click);
             // 
+            // loadButton
+            // 
+            this.loadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loadButton.Location = new System.Drawing.Point(573, 27);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(75, 23);
+            this.loadButton.TabIndex = 21;
+            this.loadButton.Text = "Load";
+            this.loadButton.UseVisualStyleBackColor = true;
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.loadButton);
             this.Controls.Add(this.ExitRaceModeButton);
             this.Controls.Add(this.selectTimeLabel);
             this.Controls.Add(this.TimeSelection);
@@ -315,7 +329,7 @@ namespace Assessment2_FlashCards
             this.Controls.Add(this.PreviousButton);
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.FileLabel);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.fileComboBox);
             this.Controls.Add(this.FlashCardDetail);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -333,7 +347,7 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label FlashCardDetail;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox fileComboBox;
         private System.Windows.Forms.Label FileLabel;
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Button PreviousButton;
@@ -353,6 +367,7 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.ComboBox TimeSelection;
         private System.Windows.Forms.Label selectTimeLabel;
         private System.Windows.Forms.Button ExitRaceModeButton;
+        private System.Windows.Forms.Button loadButton;
     }
 }
 
