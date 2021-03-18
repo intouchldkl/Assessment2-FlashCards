@@ -239,6 +239,7 @@ namespace Assessment2_FlashCards
         {
             decks[di].refreshDeck();
             index = decks[di].getCardIndex();
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
             RaceModeButtonsVisibility(true);
