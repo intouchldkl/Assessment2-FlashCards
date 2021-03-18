@@ -45,23 +45,6 @@ namespace Assessment2_FlashCards
 
         private void browseButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                InitialDirectory = @"D:\",
-                Title = "Browse Text Files",
-
-                CheckFileExists = true,
-                CheckPathExists = true,
-
-                DefaultExt = "txt",
-                Filter = "txt files (*.txt)|*.txt",
-                FilterIndex = 2,
-                RestoreDirectory = true,
-
-                ReadOnlyChecked = true,
-                ShowReadOnly = true
-
-            };
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
 
@@ -132,6 +115,19 @@ namespace Assessment2_FlashCards
             FlashCardDetail.Text = decks[di].getCard().getCardText();
             ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
+            if (isOnRaceMode == true && progressBar1.Value == decks[di].getDeckLength())
+            {
+                FlashCardDetail.Text = "TIME'S UP";
+                flipButton.Enabled = false;
+                NextButton.Enabled = false;
+                PreviousButton.Enabled = false;
+                ShuffleButton.Enabled = false;
+                randomButton.Enabled = false;
+                timer1.Enabled = false;
+                StartButton.Enabled = false;
+                StopButton.Enabled = false;
+
+            }
         }
 
         private void ShuffleButton_Click(object sender, EventArgs e)
@@ -238,6 +234,13 @@ namespace Assessment2_FlashCards
             PreviousButton.Enabled = false;
             ShuffleButton.Enabled = false;
             randomButton.Enabled = false;
+            StartButton.Enabled = true;
+            StopButton.Enabled = true;
+            decks[di].refreshDeck();
+            index = decks[di].getCardIndex();
+            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            ProgressLabel.Text = "Progress " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
+            progressBar1.Value = index + 1;
         }
 
         private void TimeSelection_SelectedIndexChanged(object sender, EventArgs e)
