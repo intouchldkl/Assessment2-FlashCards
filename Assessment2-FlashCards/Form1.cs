@@ -30,7 +30,8 @@ namespace Assessment2_FlashCards
             TimeSelection.Items.Add("5 minute");
             TimeSelection.Items.Add("3 minute");
             TimeSelection.Items.Add("1 minute");
-
+            
+            
 
         }
 
@@ -57,18 +58,19 @@ namespace Assessment2_FlashCards
 
             di = fileComboBox.SelectedIndex;
             decks[di].refreshDeck();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             index = decks[di].getCardIndex();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Minimum = 0;
             progressBar1.Maximum = decks[di].getDeckLength();
             progressBar1.Value = index + 1;
+            
         }
 
         private void loadButton_Click(object sender, EventArgs e)
         {
 
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             index = decks[di].getCardIndex();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Minimum = 0;
@@ -81,6 +83,7 @@ namespace Assessment2_FlashCards
             randomButton.Enabled = true;
             raceMode.Enabled = true;
             DisablePreviousButtonCheck();
+            
         }
 
 
@@ -95,7 +98,7 @@ namespace Assessment2_FlashCards
         private void flipButton_Click(object sender, EventArgs e)
         {
             decks[di].getCard().flipCard();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             if (isOnRaceMode == true && progressBar1.Value == decks[di].getDeckLength())
             {
 
@@ -103,6 +106,7 @@ namespace Assessment2_FlashCards
                 timer1.Enabled = false;
                 StartButton.Enabled = false;
                 StopButton.Enabled = false;
+                ExitRaceModeButton.Enabled = true;
                 ShuffleButton.Visible = true;
                 ShuffleButton.Enabled = true;
 
@@ -118,11 +122,12 @@ namespace Assessment2_FlashCards
             }
             decks[di].previousCard();
             index = decks[di].getCardIndex();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
+           
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -133,12 +138,13 @@ namespace Assessment2_FlashCards
             }
             decks[di].nextCard();
             index = decks[di].getCardIndex();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
 
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
+            
         }
 
         private void ShuffleButton_Click(object sender, EventArgs e)
@@ -149,11 +155,17 @@ namespace Assessment2_FlashCards
             }
             decks[di].shuffleDeck();
             index = 0;
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
+            if(isOnRaceMode == true)
+            {
+                flashCardButtonsEnable(false);
+                ShuffleButton.Enabled = true;
+            }
+          
         }
 
         private void randomButton_Click(object sender, EventArgs e)
@@ -164,18 +176,19 @@ namespace Assessment2_FlashCards
             }
             decks[di].getRandomCard();
             index = decks[di].getCardIndex();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
+            
         }
 
         private void raceMode_Click(object sender, EventArgs e)
         {
             decks[di].refreshDeck();
             index = decks[di].getCardIndex();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
             RaceModeButtonsVisibility(true);
@@ -184,6 +197,7 @@ namespace Assessment2_FlashCards
             ShuffleButton.Enabled = true;
             raceMode.Enabled = false;
             isOnRaceMode = true;
+            StartButton.Text = "Start";
 
         }
 
@@ -192,11 +206,15 @@ namespace Assessment2_FlashCards
             StartButton.Text = "Start";
             ms = 10;
             timer1.Enabled = true;
+            StopButton.Enabled = true;
             flashCardButtonsEnable(true);
             ShuffleButton.Visible = false;
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
+            TimeSelection.Enabled = false;
+            ExitRaceModeButton.Enabled = false;
+
         }
 
 
@@ -211,7 +229,7 @@ namespace Assessment2_FlashCards
             randomButton.Visible = true;
             decks[di].refreshDeck();
             index = decks[di].getCardIndex();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
 
         }
 
@@ -219,7 +237,10 @@ namespace Assessment2_FlashCards
         {
             flashCardButtonsEnable(false);
             timer1.Enabled = false;
+            StopButton.Enabled = false;
             StartButton.Text = "Resume";
+            TimeSelection.Enabled = true;
+            ExitRaceModeButton.Enabled = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -243,6 +264,7 @@ namespace Assessment2_FlashCards
                 FlashCardDetail.Text = "TIME'S UP";
                 timer1.Enabled = false;
                 ShuffleButton.Enabled = true;
+                ExitRaceModeButton.Enabled = true;
 
             }
 
@@ -256,12 +278,14 @@ namespace Assessment2_FlashCards
             ShuffleButton.Enabled = true;
             ShuffleButton.Visible = true;
             StartButton.Enabled = true;
-            StopButton.Enabled = true;
             decks[di].refreshDeck();
             index = decks[di].getCardIndex();
-            FlashCardDetail.Text = decks[di].getCard().getCardText();
+            UpdateCardText();
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
+            StartButton.Text = "Start";
+            TimeSelection.Enabled = true;
+            ExitRaceModeButton.Enabled = true;
         }
 
         private void TimeSelection_SelectedIndexChanged(object sender, EventArgs e)
@@ -299,8 +323,8 @@ namespace Assessment2_FlashCards
             }
             TimerLabel.Text = getChosenTime();
             StartButton.Enabled = true;
-            StopButton.Enabled = true;
             restartButton.Enabled = true;
+            StartButton.Text = "Start";
         }
 
         public string getTime()
@@ -365,23 +389,7 @@ namespace Assessment2_FlashCards
             ShuffleButton.Enabled = enable;
         }
 
-        //Needs fixing
-        public void FlashCardTextStartNewLine()
-        {
-            if (FlashCardDetail.Text.Length >= 25)
-            {
-                string temp = "";
-                for (int i = 0; i < FlashCardDetail.Text.Length - 25; i++)
-                {
-                    temp = FlashCardDetail.Text.Substring(25, 1);
-                    if (temp == " ")
-                    {
-                        i = FlashCardDetail.Text.Length - 25;
-                    }
-                }
-                FlashCardDetail.Text = FlashCardDetail.Text.Replace(temp, temp + System.Environment.NewLine);
-            }
-        }
+     
 
         public void DisablePreviousButtonCheck()
         {
@@ -405,6 +413,14 @@ namespace Assessment2_FlashCards
             {
                 NextButton.Enabled = true;
             }
+        }
+        public void UpdateCardText()
+        {
+
+          
+            flashCardBox.Text =  decks[di].getCard().getCardText();
+            flashCardBox.SelectionAlignment = HorizontalAlignment.Center;
+            
         }
     }
 }

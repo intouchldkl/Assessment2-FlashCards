@@ -31,7 +31,6 @@ namespace Assessment2_FlashCards
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.FlashCardDetail = new System.Windows.Forms.Label();
             this.fileComboBox = new System.Windows.Forms.ComboBox();
             this.FileLabel = new System.Windows.Forms.Label();
@@ -54,7 +53,7 @@ namespace Assessment2_FlashCards
             this.selectTimeLabel = new System.Windows.Forms.Label();
             this.ExitRaceModeButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.flashCardBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -66,14 +65,6 @@ namespace Assessment2_FlashCards
             this.label1.Size = new System.Drawing.Size(148, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "FLASHCARD";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(208, 119);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(366, 191);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // FlashCardDetail
             // 
@@ -306,12 +297,27 @@ namespace Assessment2_FlashCards
             this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
+            // flashCardBox
+            // 
+            this.flashCardBox.BackColor = System.Drawing.Color.CadetBlue;
+            this.flashCardBox.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.flashCardBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flashCardBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.flashCardBox.Location = new System.Drawing.Point(230, 139);
+            this.flashCardBox.Name = "flashCardBox";
+            this.flashCardBox.ReadOnly = true;
+            this.flashCardBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.flashCardBox.Size = new System.Drawing.Size(315, 178);
+            this.flashCardBox.TabIndex = 22;
+            this.flashCardBox.Text = "\n\n\n\n\t\t\t\n\tPLEASE BROWSE YOUR FILE";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.flashCardBox);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.ExitRaceModeButton);
             this.Controls.Add(this.selectTimeLabel);
@@ -332,11 +338,9 @@ namespace Assessment2_FlashCards
             this.Controls.Add(this.FileLabel);
             this.Controls.Add(this.fileComboBox);
             this.Controls.Add(this.FlashCardDetail);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,7 +350,7 @@ namespace Assessment2_FlashCards
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+      
         private System.Windows.Forms.Label FlashCardDetail;
         private System.Windows.Forms.ComboBox fileComboBox;
         private System.Windows.Forms.Label FileLabel;
@@ -369,6 +373,7 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.Label selectTimeLabel;
         private System.Windows.Forms.Button ExitRaceModeButton;
         private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.RichTextBox flashCardBox;
     }
 }
 
