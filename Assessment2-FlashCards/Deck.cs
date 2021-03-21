@@ -16,12 +16,19 @@ namespace Assessment2_FlashCards
         private int length;
 
 
+        /// <summary>
+        /// Constructor for the Deck class
+        /// </summary>
+        /// <param name="fileName"></param>
         public Deck(string fileName)
         {
             this.fileName = fileName;
            
             loadData();
         }
+        /// <summary>
+        /// Mutator-make the topCard increase by 1
+        /// </summary>
         public void nextCard()
         {
             topCard++;
@@ -32,6 +39,9 @@ namespace Assessment2_FlashCards
             
         }
 
+        /// <summary>
+        /// Mutator-Make the topCard decrease by 1
+        /// </summary>
         public void previousCard()
         {
            if(topCard <= 0)
@@ -41,7 +51,9 @@ namespace Assessment2_FlashCards
             topCard--;
             
         }
-
+        /// <summary>
+        /// Replace the topCard by a random number
+        /// </summary>
         public void getRandomCard()
         {
             Random rnd = new Random();
@@ -50,16 +62,21 @@ namespace Assessment2_FlashCards
             
         }
         
+        /// <summary>
+        /// To read file and construct the cards array
+        /// </summary>
         public void loadData()
         {
+            //This part is to get the length of the file
             length = 0;
             StreamReader fileReader = new StreamReader(fileName);
             while ((fileReader.ReadLine()) != null)
             {
                 length++;
             }
+            //
 
-
+            //This part is to get the input from the file and put it in the constructor
             fileReader = new StreamReader(fileName);
             string line = fileReader.ReadLine();
            cards = new Card[length - 1];
@@ -74,10 +91,15 @@ namespace Assessment2_FlashCards
                 count++;
 
             }
+            //
         }
 
+        /// <summary>
+        /// Generate two random numbers to use it as indexes in cards array and swap the two around 100 times
+        /// </summary>
         public void shuffleDeck()
         {
+            
             Random rnd = new Random();
             for (int i = 0;i < 100;i++)
             {
@@ -90,23 +112,44 @@ namespace Assessment2_FlashCards
             }
         }
 
+        /// <summary>
+        /// Accessor to a card object
+        /// </summary>
+        /// <returns></returns>
+        /// Returns a Card object
         public Card getCard()
         {
             return cards[topCard];
           
         }
         
+        /// <summary>
+        /// Accessor to the length of the deck
+        /// </summary>
+        /// <returns></returns>
+        /// returns deck length
         public int getDeckLength()
         {
             return length - 1;
         }
+
+        /// <summary>
+        /// Accessor to the index of the top card of the deck
+        /// </summary>
+        /// <returns></returns>
+        /// returns topCard
         public int getCardIndex()
         {
             return topCard;
         }
+
+        /// <summary>
+        /// Mutator-Reset the topCard to 0
+        /// </summary>
         public void refreshDeck()
         {
             topCard = 0;
+         
         }
 
     }

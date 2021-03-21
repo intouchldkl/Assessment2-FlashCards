@@ -109,6 +109,7 @@ namespace Assessment2_FlashCards
                 ExitRaceModeButton.Enabled = true;
                 ShuffleButton.Visible = true;
                 ShuffleButton.Enabled = true;
+                TimeSelection.Enabled = true;
 
 
             }
@@ -203,6 +204,17 @@ namespace Assessment2_FlashCards
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            if (StartButton.Text == "Start")
+            {
+                if (decks[di].getCard().isFlipped() == true)
+                {
+                    decks[di].getCard().flipCard();
+                }
+                decks[di].refreshDeck();
+                index = decks[di].getCardIndex();
+                ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
+                progressBar1.Value = index + 1;
+            }
             StartButton.Text = "Start";
             ms = 10;
             timer1.Enabled = true;
@@ -214,6 +226,7 @@ namespace Assessment2_FlashCards
             UpdateCardText();
             TimeSelection.Enabled = false;
             ExitRaceModeButton.Enabled = false;
+           
 
         }
 
