@@ -55,6 +55,8 @@ namespace Assessment2_FlashCards
             this.loadButton = new System.Windows.Forms.Button();
             this.flashCardBox = new System.Windows.Forms.RichTextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.fontButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -324,12 +326,24 @@ namespace Assessment2_FlashCards
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // fontButton
+            // 
+            this.fontButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fontButton.Location = new System.Drawing.Point(665, 27);
+            this.fontButton.Name = "fontButton";
+            this.fontButton.Size = new System.Drawing.Size(75, 23);
+            this.fontButton.TabIndex = 24;
+            this.fontButton.Text = "Font";
+            this.fontButton.UseVisualStyleBackColor = true;
+            this.fontButton.Click += new System.EventHandler(this.fontButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.fontButton);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.flashCardBox);
             this.Controls.Add(this.loadButton);
@@ -389,6 +403,8 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.Button loadButton;
         private System.Windows.Forms.RichTextBox flashCardBox;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.Button fontButton;
     }
 }
 

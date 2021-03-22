@@ -151,6 +151,9 @@ namespace Assessment2_FlashCards
             topCard = 0;
          
         }
-
+        public Card getSpecificCard(int i)
+        {
+            return cards[i];
+        }
     }
 }
