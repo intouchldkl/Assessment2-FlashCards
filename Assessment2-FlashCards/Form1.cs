@@ -20,6 +20,7 @@ namespace Assessment2_FlashCards
         private bool isOnRaceMode;
         private Deck[] decks;
         private string ShortFileName;
+        private bool isAutoFlip = false;
 
 
 
@@ -117,10 +118,7 @@ namespace Assessment2_FlashCards
 
         private void PreviousButton_Click(object sender, EventArgs e)
         {
-            if (decks[di].getCard().isFlipped() == true)
-            {
-                decks[di].getCard().flipCard();
-            }
+            autoFlipCard(isAutoFlip);
             decks[di].previousCard();
             index = decks[di].getCardIndex();
             UpdateCardText();
@@ -133,10 +131,7 @@ namespace Assessment2_FlashCards
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if (decks[di].getCard().isFlipped() == true)
-            {
-                decks[di].getCard().flipCard();
-            }
+            autoFlipCard(isAutoFlip);
             decks[di].nextCard();
             index = decks[di].getCardIndex();
             UpdateCardText();
@@ -150,10 +145,7 @@ namespace Assessment2_FlashCards
 
         private void ShuffleButton_Click(object sender, EventArgs e)
         {
-            if (decks[di].getCard().isFlipped() == true)
-            {
-                decks[di].getCard().flipCard();
-            }
+            autoFlipCard(isAutoFlip);
             decks[di].shuffleDeck();
             index = 0;
             UpdateCardText();
@@ -171,10 +163,7 @@ namespace Assessment2_FlashCards
 
         private void randomButton_Click(object sender, EventArgs e)
         {
-            if (decks[di].getCard().isFlipped() == true)
-            {
-                decks[di].getCard().flipCard();
-            }
+            autoFlipCard(isAutoFlip);
             decks[di].getRandomCard();
             index = decks[di].getCardIndex();
             UpdateCardText();
@@ -234,8 +223,13 @@ namespace Assessment2_FlashCards
 
         private void ExitRaceModeButton_Click(object sender, EventArgs e)
         {
+            if (decks[di].getCard().isFlipped() == true)
+            {
+                decks[di].getCard().flipCard();
+            }
             isOnRaceMode = false;
             raceMode.Enabled = true;
+            StartButton.Enabled = false;
             TimerLabel.Text = "00:00:00";
             RaceModeButtonsVisibility(false);
             flashCardButtonsEnable(true);
@@ -285,6 +279,10 @@ namespace Assessment2_FlashCards
 
         private void restartButton_Click(object sender, EventArgs e)
         {
+            if (decks[di].getCard().isFlipped() == true)
+            {
+                decks[di].getCard().flipCard();
+            }
             TimerLabel.Text = getChosenTime();
             timer1.Enabled = false;
             flashCardButtonsEnable(false);
@@ -299,6 +297,18 @@ namespace Assessment2_FlashCards
             StartButton.Text = "Start";
             TimeSelection.Enabled = true;
             ExitRaceModeButton.Enabled = true;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked == true)
+            {
+                isAutoFlip = true;
+            }
+            else if(checkBox1.Checked == false)
+            {
+                isAutoFlip = false;
+            }
         }
 
         private void TimeSelection_SelectedIndexChanged(object sender, EventArgs e)
@@ -434,6 +444,16 @@ namespace Assessment2_FlashCards
             flashCardBox.Text =  decks[di].getCard().getCardText();
             flashCardBox.SelectionAlignment = HorizontalAlignment.Center;
             
+        }
+        public void autoFlipCard(bool check)
+        {
+            if(check == true)
+            {
+                if (decks[di].getCard().isFlipped() == true)
+                {
+                    decks[di].getCard().flipCard();
+                }
+            }  
         }
     }
 }

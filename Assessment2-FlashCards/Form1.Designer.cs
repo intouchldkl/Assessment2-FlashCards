@@ -54,6 +54,7 @@ namespace Assessment2_FlashCards
             this.ExitRaceModeButton = new System.Windows.Forms.Button();
             this.loadButton = new System.Windows.Forms.Button();
             this.flashCardBox = new System.Windows.Forms.RichTextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -311,12 +312,25 @@ namespace Assessment2_FlashCards
             this.flashCardBox.TabIndex = 22;
             this.flashCardBox.Text = "\n\n\n\n\t\t\t\n\tPLEASE BROWSE YOUR FILE";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(17, 57);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(87, 17);
+            this.checkBox1.TabIndex = 23;
+            this.checkBox1.Text = "Auto unflip";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.flashCardBox);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.ExitRaceModeButton);
@@ -374,6 +388,7 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.Button ExitRaceModeButton;
         private System.Windows.Forms.Button loadButton;
         private System.Windows.Forms.RichTextBox flashCardBox;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
