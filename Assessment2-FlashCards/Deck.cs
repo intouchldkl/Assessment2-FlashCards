@@ -57,9 +57,14 @@ namespace Assessment2_FlashCards
         public void getRandomCard()
         {
             Random rnd = new Random();
-            topCard = rnd.Next(0, cards.Length - 1);
-            
-            
+            int rn = rnd.Next(0, cards.Length - 1);
+            while (rn == topCard)
+            {
+                rn = rnd.Next(0, cards.Length);
+            }
+            topCard = rn;
+
+
         }
         
         /// <summary>
@@ -151,6 +156,14 @@ namespace Assessment2_FlashCards
             topCard = 0;
          
         }
+
+        /// <summary>
+        /// Accessor to get a specific card pbject
+        /// </summary>
+        /// <param name="i"></param>
+        /// i is the index of the object array
+        /// <returns></returns>
+        /// a card object
         public Card getSpecificCard(int i)
         {
             return cards[i];

@@ -64,7 +64,11 @@ namespace Assessment2_FlashCards
         {
             return flipped;
         }
-
+        /// <summary>
+        /// Accessor to get the answer of the card
+        /// </summary>
+        /// <returns></returns>
+        /// answer
         public string getAnswer()
         {
             return answer;
