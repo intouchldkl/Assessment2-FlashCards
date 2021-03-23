@@ -132,6 +132,15 @@ namespace Assessment2_FlashCards
             updateProgressBar();
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
+            if(isTYSon == true)
+            {
+             
+                answerBox.Text = answers[index];
+                if(answerBox.Text != "")
+                {
+                    NextButton.Text = "Next";
+                }
+            }
            
         }
 
@@ -147,7 +156,8 @@ namespace Assessment2_FlashCards
             if(isTYSon == true)
             {
                 NextButton.Text = "Skip";
-                answerBox.Text = "";
+          
+                answerBox.Text = answers[index];
             }
             
         }
@@ -235,6 +245,10 @@ namespace Assessment2_FlashCards
                 answerBox.Enabled = true;
                 SubmitButton.Enabled = true;
                 flipButton.Enabled = false;
+                if(StartButton.Text == "Start")
+                {
+                    resetAnswers();
+                }
             }
 
 
@@ -310,6 +324,12 @@ namespace Assessment2_FlashCards
                 TimeSelection.Enabled = true;
                 StopButton.Enabled = false;
                 flashCardButtonsEnable(false);
+                if(isTYSon == true)
+                {
+                    SubmitButton.Enabled = false;
+                    flashCardBox.Text = "Your result: " + calResult().ToString() + "%" + "\n" + getResult() + "Correct answers:" + "\n" + getAllAnswers();
+                    MessageBox.Show("TIME'S UP");
+                }
             }
 
         }
