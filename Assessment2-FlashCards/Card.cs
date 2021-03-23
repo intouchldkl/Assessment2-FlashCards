@@ -64,5 +64,10 @@ namespace Assessment2_FlashCards
         {
             return flipped;
         }
+
+        public string getAnswer()
+        {
+            return answer;
+        }
     }
 }

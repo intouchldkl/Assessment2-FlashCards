@@ -57,6 +57,10 @@ namespace Assessment2_FlashCards
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.fontButton = new System.Windows.Forms.Button();
+            this.TYSButton = new System.Windows.Forms.Button();
+            this.answerLabel = new System.Windows.Forms.Label();
+            this.SubmitButton = new System.Windows.Forms.Button();
+            this.answerBox = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -291,6 +295,7 @@ namespace Assessment2_FlashCards
             // 
             // loadButton
             // 
+            this.loadButton.Enabled = false;
             this.loadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadButton.Location = new System.Drawing.Point(573, 27);
             this.loadButton.Name = "loadButton";
@@ -309,7 +314,7 @@ namespace Assessment2_FlashCards
             this.flashCardBox.Location = new System.Drawing.Point(230, 139);
             this.flashCardBox.Name = "flashCardBox";
             this.flashCardBox.ReadOnly = true;
-            this.flashCardBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.flashCardBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.flashCardBox.Size = new System.Drawing.Size(315, 178);
             this.flashCardBox.TabIndex = 22;
             this.flashCardBox.Text = "\n\n\n\n\t\t\t\n\tPLEASE BROWSE YOUR FILE";
@@ -317,6 +322,7 @@ namespace Assessment2_FlashCards
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.Location = new System.Drawing.Point(17, 57);
             this.checkBox1.Name = "checkBox1";
@@ -337,12 +343,61 @@ namespace Assessment2_FlashCards
             this.fontButton.UseVisualStyleBackColor = true;
             this.fontButton.Click += new System.EventHandler(this.fontButton_Click);
             // 
+            // TYSButton
+            // 
+            this.TYSButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TYSButton.Location = new System.Drawing.Point(28, 403);
+            this.TYSButton.Name = "TYSButton";
+            this.TYSButton.Size = new System.Drawing.Size(143, 23);
+            this.TYSButton.TabIndex = 25;
+            this.TYSButton.Text = "TEST YOURSELF";
+            this.TYSButton.UseVisualStyleBackColor = true;
+            this.TYSButton.Visible = false;
+            this.TYSButton.Click += new System.EventHandler(this.TYSButton_Click);
+            // 
+            // answerLabel
+            // 
+            this.answerLabel.AutoSize = true;
+            this.answerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.answerLabel.Location = new System.Drawing.Point(261, 389);
+            this.answerLabel.Name = "answerLabel";
+            this.answerLabel.Size = new System.Drawing.Size(65, 13);
+            this.answerLabel.TabIndex = 26;
+            this.answerLabel.Text = "ANSWER:";
+            this.answerLabel.Visible = false;
+            // 
+            // SubmitButton
+            // 
+            this.SubmitButton.Enabled = false;
+            this.SubmitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SubmitButton.Location = new System.Drawing.Point(480, 384);
+            this.SubmitButton.Name = "SubmitButton";
+            this.SubmitButton.Size = new System.Drawing.Size(65, 23);
+            this.SubmitButton.TabIndex = 28;
+            this.SubmitButton.Text = "SUBMIT";
+            this.SubmitButton.UseVisualStyleBackColor = true;
+            this.SubmitButton.Visible = false;
+            this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
+            // 
+            // answerBox
+            // 
+            this.answerBox.Enabled = false;
+            this.answerBox.Location = new System.Drawing.Point(325, 386);
+            this.answerBox.Name = "answerBox";
+            this.answerBox.Size = new System.Drawing.Size(138, 20);
+            this.answerBox.TabIndex = 29;
+            this.answerBox.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.answerBox);
+            this.Controls.Add(this.SubmitButton);
+            this.Controls.Add(this.answerLabel);
+            this.Controls.Add(this.TYSButton);
             this.Controls.Add(this.fontButton);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.flashCardBox);
@@ -405,6 +460,11 @@ namespace Assessment2_FlashCards
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.Button fontButton;
+        private System.Windows.Forms.Button TYSButton;
+        private System.Windows.Forms.Label answerLabel;
+       
+        private System.Windows.Forms.Button SubmitButton;
+        private System.Windows.Forms.MaskedTextBox answerBox;
     }
 }
 

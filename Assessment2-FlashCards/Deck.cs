@@ -79,7 +79,7 @@ namespace Assessment2_FlashCards
             //This part is to get the input from the file and put it in the constructor
             fileReader = new StreamReader(fileName);
             string line = fileReader.ReadLine();
-           cards = new Card[length - 1];
+           cards = new Card[length];
             int count = 0;
             while ((line = fileReader.ReadLine()) != null)
             {

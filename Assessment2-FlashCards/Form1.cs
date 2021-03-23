@@ -20,8 +20,11 @@ namespace Assessment2_FlashCards
         private bool isOnRaceMode;
         private Deck[] decks;
         private string ShortFileName;
-        private bool isAutoFlip = false;
+        private bool isAutoFlip ;
         private bool autoFliptemp;
+        private bool isTYSon;
+        private string[] answers;
+        private bool tysButtonClickedOnce;
 
 
 
@@ -29,6 +32,7 @@ namespace Assessment2_FlashCards
         {
             InitializeComponent();
             decks = new Deck[100];
+          
             TimeSelection.Items.Add("5 minute");
             TimeSelection.Items.Add("3 minute");
             TimeSelection.Items.Add("1 minute");
@@ -42,7 +46,7 @@ namespace Assessment2_FlashCards
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-
+                loadButton.Enabled = true;
                 fileName = openFileDialog1.FileName;
                 ShortFileName = openFileDialog1.SafeFileName;
                 di = dc;
@@ -65,6 +69,7 @@ namespace Assessment2_FlashCards
            progressBar1.Minimum = 0;
             progressBar1.Maximum = decks[di].getDeckLength();
             updateProgressBar();
+            answers = new string[decks[di].getDeckLength()];
 
 
         }
@@ -82,8 +87,11 @@ namespace Assessment2_FlashCards
             flashCardButtonsEnable(true);
             randomButton.Enabled = true;
             raceMode.Enabled = true;
+            checkBox1.Enabled = true;
             DisablePreviousButtonCheck();
-            
+            loadButton.Enabled = false;
+            answers = new string[decks[di].getDeckLength()];
+
         }
 
 
@@ -136,6 +144,11 @@ namespace Assessment2_FlashCards
             updateProgressBar();
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
+            if(isTYSon == true)
+            {
+                NextButton.Text = "Skip";
+                answerBox.Text = "";
+            }
             
         }
 
@@ -186,11 +199,13 @@ namespace Assessment2_FlashCards
             checkBox1.Checked = true;
             isAutoFlip = true;
             checkBox1.Visible = false;
+            TYSButton.Visible = true;
 
         }
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+       
             if (StartButton.Text == "Start")
             {
                 if (decks[di].getCard().isFlipped() == true)
@@ -213,7 +228,15 @@ namespace Assessment2_FlashCards
             TimeSelection.Enabled = false;
             ExitRaceModeButton.Enabled = false;
             StartButton.Enabled = false;
-           
+            TYSButton.Visible = false;
+            if (isTYSon == true)
+            {
+               
+                answerBox.Enabled = true;
+                SubmitButton.Enabled = true;
+                flipButton.Enabled = false;
+            }
+
 
         }
 
@@ -241,6 +264,7 @@ namespace Assessment2_FlashCards
             isAutoFlip = autoFliptemp;
             checkBox1.Visible = true;
             ShuffleButton.Visible = true;
+            TYSButton.Visible = false;
 
         }
 
@@ -253,6 +277,11 @@ namespace Assessment2_FlashCards
             TimeSelection.Enabled = true;
             ExitRaceModeButton.Enabled = true;
             StartButton.Enabled = true;
+            TYSButton.Visible = true;
+            if (isTYSon == true)
+            {
+                answerBox.Enabled = false;
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -306,6 +335,11 @@ namespace Assessment2_FlashCards
             TimeSelection.Enabled = true;
             ExitRaceModeButton.Enabled = true;
             StartButton.Enabled = true;
+            TYSButton.Visible = true;
+            if (isTYSon == true)
+            {
+                answerBox.Enabled = false;
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -377,12 +411,81 @@ namespace Assessment2_FlashCards
 
         private void fontButton_Click(object sender, EventArgs e)
         {
-            fontDialog1.ShowDialog();
+           
             if (fontDialog1.ShowDialog() != DialogResult.Cancel)
             {
                 flashCardBox.Font = fontDialog1.Font;
                 
             }
+        }
+
+        private void TYSButton_Click(object sender, EventArgs e)
+        {
+            if(tysButtonClickedOnce == false)
+            {
+              
+                isTYSon = true;
+                TYSButton.BackColor = Color.Green;
+                NextButton.Text = "Skip";
+                answerLabel.Visible = true;
+                answerBox.Visible = true;
+                SubmitButton.Visible = true;
+                tysButtonClickedOnce = true;
+                decks[di].refreshDeck();
+                UpdateCardText();
+                updateProgressBar();
+                StartButton.Enabled = false;
+                restartButton.Enabled = false;
+                TimerLabel.Text = "00:00:00";
+                StartButton.Text = "Start";
+                
+
+            }
+            else if(tysButtonClickedOnce == true)
+            {
+                isTYSon = false;
+                TYSButton.BackColor = Color.White;
+                NextButton.Text = "Next";
+                answerLabel.Visible = false;
+                answerBox.Visible = false;
+                SubmitButton.Visible = false;
+                tysButtonClickedOnce = false;
+                decks[di].refreshDeck();
+                UpdateCardText();
+                updateProgressBar();
+                StartButton.Enabled = false;
+                restartButton.Enabled = false;
+                TimerLabel.Text = "00:00:00";
+                StartButton.Text = "Start";
+            }
+           
+
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            answers[index] = answerBox.Text;
+            NextButton.Text = "Next";
+            if (index+1 == decks[di].getDeckLength())
+            {
+                timer1.Enabled = false;
+                flashCardButtonsEnable(false);
+                SubmitButton.Enabled = false;
+                flashCardBox.Text = "Your result: " + calResult().ToString() +"%"+  "\n" + getResult() + "Correct answers:" + "\n" + getAllAnswers();
+                string text = "You got " + calResult() + "%";
+                MessageBox.Show(text);
+                StartButton.Enabled = false;
+                StopButton.Enabled = false;
+                ExitRaceModeButton.Enabled = true;
+                ShuffleButton.Visible = true;
+                ShuffleButton.Enabled = true;
+                TimeSelection.Enabled = true;
+                answerBox.Text = "";
+                resetAnswers();
+                
+
+            }
+
         }
 
         public void RaceModeButtonsVisibility(bool visibility)
@@ -495,6 +598,61 @@ namespace Assessment2_FlashCards
         {
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
+        }
+        public double calResult()
+        {
+            double percent = 0;
+            int total = 0;
+            for (int i = 0; i < decks[di].getDeckLength(); i++)
+            {
+                if(answers[i] == decks[di].getSpecificCard(i).getAnswer())
+                {
+                    total+=1;
+                }
+            }
+            percent =  (Convert.ToDouble(total) / Convert.ToDouble(decks[di].getDeckLength())) * 100 ;
+            percent = Math.Round(percent);
+            return percent;
+           
+        }
+        public string getResult()
+        {
+            string result = "";
+            string tick;
+            for (int i = 0; i < decks[di].getDeckLength();i++)
+            {
+                if(answers[i] == decks[di].getSpecificCard(i).getAnswer())
+                {
+                    tick = "✓";
+                }
+                else
+                {
+                    tick = "✘";
+                }
+                result += tick + answers[i] + "\n";
+
+                
+                
+
+             }
+            return result;
+        }
+        public string getAllAnswers()
+        {
+            string result = "";
+            for (int i = 0; i < decks[di].getDeckLength(); i++)
+            {
+                result += decks[di].getSpecificCard(i).getAnswer() + "\n";
+            }
+            return result;
+
+        }
+        public void resetAnswers()
+        {
+            for(int i=0;i < decks[di].getDeckLength(); i++)
+            {
+                answers[i] = "";
+            }
         }
     }
 }
