@@ -73,5 +73,13 @@ namespace Assessment2_FlashCards
         {
             return answer;
         }
+        /// <summary>
+        /// Accessor to get the question of the card
+        /// </summary>
+        /// <returns></returns>
+        public string getQuestion()
+        {
+            return question;
+        }
     }
 }

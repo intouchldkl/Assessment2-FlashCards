@@ -242,7 +242,7 @@ namespace Assessment2_FlashCards
         }
 
         /// <summary>
-        /// To shuffle cards and output it
+        /// To shuffle cards and reset the index to 0 and output the new topcard
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -264,6 +264,11 @@ namespace Assessment2_FlashCards
           
         }
 
+        /// <summary>
+        /// get a random card and output it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void randomButton_Click(object sender, EventArgs e)
         {
             autoFlipCard(isAutoFlip);
@@ -276,6 +281,11 @@ namespace Assessment2_FlashCards
             
         }
 
+        /// <summary>
+        /// click to enable race mode and temporarily disable all the flashcard buttons until the user start the timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void raceMode_Click(object sender, EventArgs e)
         {
             unFlipAllCards();
@@ -298,9 +308,14 @@ namespace Assessment2_FlashCards
 
         }
 
+        /// <summary>
+        /// to start the timer and enable the flashcard buttons like next,flip,previous
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartButton_Click(object sender, EventArgs e)
         {
-       
+       ///If the start button is start and not resume,the deck will get refresh so the index will be 0
             if (StartButton.Text == "Start")
             {
                 if (decks[di].getCard().isFlipped() == true)
@@ -324,12 +339,14 @@ namespace Assessment2_FlashCards
             ExitRaceModeButton.Enabled = false;
             StartButton.Enabled = false;
             TYSButton.Visible = false;
+            
             if (isTYSon == true)
             {
                
                 answerBox.Enabled = true;
                 SubmitButton.Enabled = true;
                 flipButton.Enabled = false;
+                ///To reset answer everytime you start the game
                 if(StartButton.Text == "Start")
                 {
                     resetAnswers();
@@ -340,7 +357,11 @@ namespace Assessment2_FlashCards
         }
 
 
-
+        /// <summary>
+        /// To exit the racemode and come back to the main mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitRaceModeButton_Click(object sender, EventArgs e)
         {
             if (decks[di].getCard().isFlipped() == true)
@@ -367,6 +388,11 @@ namespace Assessment2_FlashCards
 
         }
 
+        /// <summary>
+        /// This button is to stop the timer and temporarily disble the flashcard control buttons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StopButton_Click(object sender, EventArgs e)
         {
             flashCardButtonsEnable(false);
@@ -382,7 +408,11 @@ namespace Assessment2_FlashCards
                 answerBox.Enabled = false;
             }
         }
-
+        /// <summary>
+        /// This is to make the timer decrease 1 millisecond every interval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
             TimerLabel.Text = getTime();
@@ -419,6 +449,12 @@ namespace Assessment2_FlashCards
 
         }
 
+        /// <summary>
+        /// This is to restart the timer to the time chosen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
         private void restartButton_Click(object sender, EventArgs e)
         {
             if (decks[di].getCard().isFlipped() == true)
@@ -446,7 +482,11 @@ namespace Assessment2_FlashCards
                 answerBox.Enabled = false;
             }
         }
-
+        /// <summary>
+        /// this allows you to choose whether you want the program to auto unflip cards or not
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if(checkBox1.Checked == true)
@@ -460,6 +500,11 @@ namespace Assessment2_FlashCards
             }
         }
 
+        /// <summary>
+        /// This is when the chosen time is changed,the program will change the timer as well
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TimeSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
             ti = TimeSelection.SelectedIndex;
@@ -471,6 +516,10 @@ namespace Assessment2_FlashCards
             StartButton.Text = "Start";
         }
 
+        /// <summary>
+        /// this is to update the time everytime the timer tick
+        /// </summary>
+        /// <returns></returns>
         public string getTime()
         {
             string m1 = m.ToString();
@@ -492,6 +541,10 @@ namespace Assessment2_FlashCards
 
             return m1 + ":" + s1 + ":" + ms1;
         }
+        /// <summary>
+        /// this is to get the time chosen from the combobox
+        /// </summary>
+        /// <returns></returns>
         public string getChosenTime()
         {
             string m1 = mChosen.ToString();
@@ -513,7 +566,11 @@ namespace Assessment2_FlashCards
 
             return m1 + ":" + s1 + ":" + ms1;
         }
-
+        /// <summary>
+        /// this allows you to change the font
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fontButton_Click(object sender, EventArgs e)
         {
            
@@ -524,8 +581,15 @@ namespace Assessment2_FlashCards
             }
         }
 
+        /// <summary>
+        /// this allows you to enable test yourself mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TYSButton_Click(object sender, EventArgs e)
         {
+            ///I have an if statement because i don't want to add another exit button 
+            ///so I make it if you click the button once then enable if click again then disable
             if(tysButtonClickedOnce == false)
             {
               
@@ -566,11 +630,16 @@ namespace Assessment2_FlashCards
            
 
         }
-
+        /// <summary>
+        /// This is for the user to submit the answer and store the answer in answers array
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SubmitButton_Click(object sender, EventArgs e)
         {
             answers[index] = answerBox.Text;
             NextButton.Text = "Next";
+            ///This if statement is to get the result when the user submit the last question
             if (index+1 == decks[di].getDeckLength())
             {
                 timer1.Enabled = false;
@@ -593,6 +662,10 @@ namespace Assessment2_FlashCards
 
         }
 
+        /// <summary>
+        /// to control the visibility of the racemode buttons
+        /// </summary>
+        /// <param name="visibility"></param>
         public void RaceModeButtonsVisibility(bool visibility)
         {
             selectTimeLabel.Visible = visibility;
@@ -604,6 +677,11 @@ namespace Assessment2_FlashCards
             ExitRaceModeButton.Visible = visibility;
 
         }
+
+        /// <summary>
+        /// To enable or disble the flashcard control buttons
+        /// </summary>
+        /// <param name="enable"></param>
         public void flashCardButtonsEnable(bool enable)
         {
             flipButton.Enabled = enable;
@@ -613,7 +691,9 @@ namespace Assessment2_FlashCards
         }
 
      
-
+        /// <summary>
+        /// to check if the card is at card 1 if so then disable the previous button
+        /// </summary>
         public void DisablePreviousButtonCheck()
         {
             if (progressBar1.Value == 1)
@@ -625,6 +705,10 @@ namespace Assessment2_FlashCards
                 PreviousButton.Enabled = true;
             }
         }
+
+        /// <summary>
+        /// to check if the card is the last card if so then disable the next button
+        /// </summary>
         public void DisableNextButtonCheck()
         {
             if (progressBar1.Value == decks[di].getDeckLength())
@@ -636,7 +720,11 @@ namespace Assessment2_FlashCards
             {
                 NextButton.Enabled = true;
             }
+           
         }
+        /// <summary>
+        /// to update the text on richtextbox
+        /// </summary>
         public void UpdateCardText()
         {
 
@@ -645,6 +733,10 @@ namespace Assessment2_FlashCards
             flashCardBox.SelectionAlignment = HorizontalAlignment.Center;
             
         }
+        /// <summary>
+        /// to check whether you want the cards to be auto unflipped or not
+        /// </summary>
+        /// <param name="check"></param>
         public void autoFlipCard(bool check)
         {
             if(check == true)
@@ -655,6 +747,9 @@ namespace Assessment2_FlashCards
                 }
             }  
         }
+        /// <summary>
+        /// when the time is chosen from the combobox this method will set the value of time
+        /// </summary>
         public void timeIndexCheck()
         {
             if (ti == 0)
@@ -689,6 +784,9 @@ namespace Assessment2_FlashCards
             }
            
         }
+        /// <summary>
+        /// To unflip all cards
+        /// </summary>
         public void unFlipAllCards()
         {
             for (int i = 0; i < decks[di].getDeckLength(); i++)
@@ -699,11 +797,18 @@ namespace Assessment2_FlashCards
                 }
             }
         }
+        /// <summary>
+        /// To update the progressbar
+        /// </summary>
         public void updateProgressBar()
         {
             ProgressLabel.Text = "Card " + (index + 1).ToString() + "/" + decks[di].getDeckLength().ToString();
             progressBar1.Value = index + 1;
         }
+        /// <summary>
+        /// To calculate the result of the answers in test yourself mode
+        /// </summary>
+        /// <returns></returns>
         public double calResult()
         {
             double percent = 0;
@@ -720,6 +825,10 @@ namespace Assessment2_FlashCards
             return percent;
            
         }
+        /// <summary>
+        /// To put the user's answer in format
+        /// </summary>
+        /// <returns></returns>
         public string getResult()
         {
             string result = "";
@@ -742,16 +851,23 @@ namespace Assessment2_FlashCards
              }
             return result;
         }
+        /// <summary>
+        /// To get all the correct answers and put it in the format
+        /// </summary>
+        /// <returns></returns>
         public string getAllAnswers()
         {
             string result = "";
             for (int i = 0; i < decks[di].getDeckLength(); i++)
             {
-                result += decks[di].getSpecificCard(i).getAnswer() + "\n";
+                result += decks[di].getSpecificCard(i).getQuestion() + "\n" +":"+ decks[di].getSpecificCard(i).getAnswer() + "\n";
             }
             return result;
 
         }
+        /// <summary>
+        /// To reset all the answers
+        /// </summary>
         public void resetAnswers()
         {
             for(int i=0;i < decks[di].getDeckLength(); i++)
