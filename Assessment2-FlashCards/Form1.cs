@@ -15,15 +15,55 @@ namespace Assessment2_FlashCards
 
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// fileName represents the file name with filepath
+        /// </summary>
         private string fileName;
+        /// <summary>
+        /// index represents the card that is currently on top
+        /// m is minute in the timer
+        /// s is second in the timer
+        /// ms is millisecond in the timer
+        /// mChosen is the minute the user choose from the combobox
+        /// sChosen is the second the user choose from the combobox
+        /// msChosen is the milisecond the user choose from the combobox
+        /// dc is the deck count
+        /// di is the deck index
+        /// ti is the time index in from the combobox
+ 
+        /// </summary>
         private int index, m, s, ms, mChosen, sChosen, msChosen, dc, di,ti;
+        /// <summary>
+        /// IsOnRaceMode indicates whether raceMode is on or not
+        /// </summary>
         private bool isOnRaceMode;
+        /// <summary>
+        /// Array of decks loaded in the file combobox
+        /// </summary>
         private Deck[] decks;
+        /// <summary>
+        /// A filename without filepath
+        /// </summary>
         private string ShortFileName;
+        /// <summary>
+        /// isAutoFlip indicates whether the program should auto unflip the card or not
+        /// </summary>
         private bool isAutoFlip ;
+        /// <summary>
+        /// A temporary attribute to store the value of isAutoFlip when enter raceMode
+        /// </summary>
         private bool autoFliptemp;
+        /// <summary>
+        /// isTYSon indeicates whether test yourself mode is on or not
+        /// </summary>
         private bool isTYSon;
+        /// <summary>
+        /// array of answers entered in test yourself mode
+        /// </summary>
         private string[] answers;
+        /// <summary>
+        /// indicates whether tysButton has already been clicked or not
+        /// </summary>
         private bool tysButtonClickedOnce;
 
 
@@ -31,8 +71,11 @@ namespace Assessment2_FlashCards
         public Form1()
         {
             InitializeComponent();
+           ///Initialise the array of decks
             decks = new Deck[100];
           
+
+            /// Add time options to the time combobox
             TimeSelection.Items.Add("5 minute");
             TimeSelection.Items.Add("3 minute");
             TimeSelection.Items.Add("1 minute");
@@ -42,6 +85,12 @@ namespace Assessment2_FlashCards
         }
 
 
+        /// <summary>
+        /// When the browse button click the file explorer will pop up and when we choose the file a deck will be created 
+        /// with the name of the file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void browseButton_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -59,6 +108,12 @@ namespace Assessment2_FlashCards
 
         }
 
+        /// <summary>
+        /// The method allows me to choose the deck that has already been loaded and initialise a new array of answer in tysMode
+        /// It will also reset the text on the richtextbox and the progressbar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fileComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -74,6 +129,12 @@ namespace Assessment2_FlashCards
 
         }
 
+        /// <summary>
+        /// When the load buuton is clicked the text on the richtextbox and progressbar will change to the topcard of the deck
+        /// that has been loaded and it will enable all necessary buttons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void loadButton_Click(object sender, EventArgs e)
         {
 
@@ -95,18 +156,25 @@ namespace Assessment2_FlashCards
         }
 
 
-
+        /// <summary>
+        /// Add the file name without file to fileCombobox
+        /// </summary>
         public void AddDeck()
         {
             fileComboBox.Items.Add(ShortFileName);
         }
 
 
-
+        /// <summary>
+        /// Flip the card and update the text on the richTextBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void flipButton_Click(object sender, EventArgs e)
         {
             decks[di].getCard().flipCard();
             UpdateCardText();
+            /// this if statement is to stop the timer on racemode when the last card is fliped
             if (isOnRaceMode == true && progressBar1.Value == decks[di].getDeckLength())
             {
 
@@ -123,6 +191,11 @@ namespace Assessment2_FlashCards
             }
         }
 
+        /// <summary>
+        /// This method will change the topcard to the previous card and output it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PreviousButton_Click(object sender, EventArgs e)
         {
             autoFlipCard(isAutoFlip);
@@ -132,10 +205,12 @@ namespace Assessment2_FlashCards
             updateProgressBar();
             DisablePreviousButtonCheck();
             DisableNextButtonCheck();
+            
             if(isTYSon == true)
             {
-             
+             ///this line is to make sure that the answerbox shows the answer you have already submitted
                 answerBox.Text = answers[index];
+                ///This if statement is to make sure that if the answer is typed,Skip will become next
                 if(answerBox.Text != "")
                 {
                     NextButton.Text = "Next";
@@ -143,7 +218,11 @@ namespace Assessment2_FlashCards
             }
            
         }
-
+        /// <summary>
+        /// When the next button is clicked get the next class and output it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NextButton_Click(object sender, EventArgs e)
         {
             autoFlipCard(isAutoFlip);
@@ -161,6 +240,12 @@ namespace Assessment2_FlashCards
             }
             
         }
+
+        /// <summary>
+        /// To shuffle cards and output it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void ShuffleButton_Click(object sender, EventArgs e)
         {

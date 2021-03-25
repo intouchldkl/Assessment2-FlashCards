@@ -393,7 +393,7 @@ namespace Assessment2_FlashCards
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(796, 451);
             this.Controls.Add(this.answerBox);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.answerLabel);
