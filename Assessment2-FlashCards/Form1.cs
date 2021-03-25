@@ -186,7 +186,7 @@ namespace Assessment2_FlashCards
                 ShuffleButton.Visible = true;
                 ShuffleButton.Enabled = true;
                 TimeSelection.Enabled = true;
-
+                TYSButton.Visible = true;
 
             }
         }
@@ -439,6 +439,7 @@ namespace Assessment2_FlashCards
                 TimeSelection.Enabled = true;
                 StopButton.Enabled = false;
                 flashCardButtonsEnable(false);
+                TYSButton.Visible = true;
                 if(isTYSon == true)
                 {
                     SubmitButton.Enabled = false;
